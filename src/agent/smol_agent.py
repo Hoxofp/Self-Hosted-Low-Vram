@@ -61,7 +61,7 @@ Remember: Most questions can be answered directly without tools. Only use tools 
 
     def __init__(
         self,
-        model: str = "qwen2.5-coder:3b-instruct-q4_K_M",
+        model: str = "qwen2.5-coder:7b-instruct-q4_K_M",
         base_url: str = "http://localhost:11434",
         max_steps: int = 10
     ):
@@ -211,7 +211,7 @@ Remember: Most questions can be answered directly without tools. Only use tools 
 
 # Convenience function
 def create_smol_agent(
-    model: str = "qwen2.5-coder:3b-instruct-q4_K_M",
+    model: str = "qwen2.5-coder:7b-instruct-q4_K_M",
     tools: Optional[List[Tool]] = None
 ) -> SmolAgent:
     """Create a SmolAgent with optional tools."""

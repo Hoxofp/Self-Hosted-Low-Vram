@@ -25,7 +25,7 @@ chmod +x scripts/install.sh && ./scripts/install.sh
 winget install Ollama.Ollama
 
 # 2. Download model
-ollama pull qwen2.5-coder:3b-instruct-q4_K_M
+ollama pull qwen2.5-coder:7b-instruct-q4_K_M
 
 # 3. Install dependencies
 pip install -r requirements.txt

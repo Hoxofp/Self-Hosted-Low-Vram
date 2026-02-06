@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 # Download model
 echo "[INFO] Downloading Qwen model (this may take a while)..."
-ollama pull qwen2.5-coder:3b-instruct-q4_K_M
+ollama pull qwen2.5-coder:7b-instruct-q4_K_M
 
 echo
 echo "========================================"

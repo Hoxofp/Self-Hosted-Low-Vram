@@ -105,7 +105,7 @@ def list_files(directory: str = ".") -> str:
 
 def create_agent() -> SmolAgent:
     """Create agent with tools."""
-    agent = SmolAgent(model="qwen2.5-coder:3b-instruct-q4_K_M")
+    agent = SmolAgent(model="qwen2.5-coder:7b-instruct-q4_K_M")
     
     # Register tools
     agent.register_tool(Tool(

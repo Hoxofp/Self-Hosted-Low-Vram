@@ -18,7 +18,7 @@ class Message:
 @dataclass 
 class AgentConfig:
     """Agent configuration."""
-    model: str = "qwen2.5-coder:3b-instruct-q4_K_M"
+    model: str = "qwen2.5-coder:7b-instruct-q4_K_M"
     base_url: str = "http://localhost:11434"
     temperature: float = 0.7
     max_tokens: int = 2048

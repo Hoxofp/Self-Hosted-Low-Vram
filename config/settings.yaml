@@ -3,8 +3,8 @@
 # Model settings
 model:
   provider: ollama
-  name: qwen2.5-coder:3b-instruct-q4_K_M
-  fallback: deepseek-coder:1.3b-instruct-q4_K_M
+  name: qwen2.5-coder:7b-instruct-q4_K_M
+  fallback: qwen2.5-coder:3b-instruct-q4_K_M
 
 # Hardware detection
 hardware:
