@@ -1,0 +1,42 @@
+# Agent Configuration
+
+# Model settings
+model:
+  provider: ollama
+  name: qwen2.5-coder:3b-instruct-q4_K_M
+  fallback: deepseek-coder:1.3b-instruct-q4_K_M
+
+# Hardware detection
+hardware:
+  auto_detect: true
+  max_vram_gb: 4
+  use_cpu_fallback: true
+
+# Memory settings
+memory:
+  type: vector  # vector, knowledge_graph, or hybrid
+  persist_path: ./data/memory
+  max_history: 100
+
+# RAG settings
+rag:
+  enabled: true
+  vector_db: chromadb
+  embedding_model: nomic-embed-text
+  chunk_size: 500
+  chunk_overlap: 50
+
+# Skills
+skills:
+  path: ./skills
+  hot_reload: true
+
+# Safety
+safety:
+  sandbox_code_execution: true
+  allowed_paths:
+    - ./workspace
+    - ./output
+  require_confirmation_for:
+    - shell_commands
+    - file_delete
