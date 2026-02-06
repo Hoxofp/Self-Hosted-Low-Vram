@@ -40,30 +40,24 @@ class SmolAgent:
     - Skill loading
     """
     
-    SYSTEM_PROMPT = """You are an AI coding assistant with access to tools.
+    SYSTEM_PROMPT = """You are an AI coding assistant.
 
-When you need to use a tool, respond with a JSON block like this:
-```json
-{{
-    "thought": "I need to do X because Y",
-    "action": "tool_name",
-    "action_input": {{"param1": "value1"}}
-}}
-```
+IMPORTANT: For simple questions or conversations, respond DIRECTLY without using any special format.
 
-When you have the final answer, respond with:
+Only use the JSON tool format when you ACTUALLY NEED to:
+- Execute code (python_exec)
+- Read/write files (read_file, write_file)
+- List directory contents (list_files)
+
+If you need to use a tool, respond with ONLY this JSON (no other text):
 ```json
-{{
-    "thought": "I now have the answer",
-    "action": "final_answer",
-    "action_input": {{"answer": "Your response here"}}
-}}
+{{"thought": "why I need this tool", "action": "tool_name", "action_input": {{"param": "value"}}}}
 ```
 
 Available tools:
 {tools_description}
 
-Always think step by step. Use tools when needed."""
+Remember: Most questions can be answered directly without tools. Only use tools when actually needed."""
 
     def __init__(
         self,
@@ -164,19 +158,26 @@ Always think step by step. Use tools when needed."""
             response = self.client.chat(
                 model=self.model,
                 messages=messages,
-                temperature=0.3  # Lower temp for more consistent tool use
+                temperature=0.7
             )
             
             # Parse action
             action_data = self.parse_action(response)
             
+            # No valid JSON found = direct answer
             if not action_data:
-                # No action found, treat as direct answer
                 return response
             
-            thought = action_data.get("thought", "")
             action = action_data.get("action", "")
             action_input = action_data.get("action_input", {})
+            
+            # No action specified = direct answer
+            if not action:
+                return response
+            
+            # Unknown tool = direct answer (model didn't follow format)
+            if action not in self.tools and action != "final_answer":
+                return response
             
             # Check for final answer
             if action == "final_answer":
@@ -189,7 +190,7 @@ Always think step by step. Use tools when needed."""
             messages.append({"role": "assistant", "content": response})
             messages.append({
                 "role": "user", 
-                "content": f"Observation: {observation}\n\nContinue with your reasoning."
+                "content": f"Tool result: {observation}\n\nNow provide your response to the user."
             })
         
         return "Max steps reached. Please try a simpler request."
