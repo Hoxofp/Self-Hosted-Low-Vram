@@ -44,20 +44,20 @@ class SmolAgent:
 
 When you need to use a tool, respond with a JSON block like this:
 ```json
-{
+{{
     "thought": "I need to do X because Y",
     "action": "tool_name",
-    "action_input": {"param1": "value1"}
-}
+    "action_input": {{"param1": "value1"}}
+}}
 ```
 
 When you have the final answer, respond with:
 ```json
-{
+{{
     "thought": "I now have the answer",
     "action": "final_answer",
-    "action_input": {"answer": "Your response here"}
-}
+    "action_input": {{"answer": "Your response here"}}
+}}
 ```
 
 Available tools:
